@@ -19,13 +19,13 @@ using Minio.Helper;
 
 namespace Minio.DataModel.Args;
 
-internal class NewMultipartUploadCopyArgs : NewMultipartUploadArgs<NewMultipartUploadCopyArgs>
+public class NewMultipartUploadCopyArgs : NewMultipartUploadArgs<NewMultipartUploadCopyArgs>
 {
-    internal bool ReplaceMetadataDirective { get; set; }
-    internal bool ReplaceTagsDirective { get; set; }
-    internal string StorageClass { get; set; }
-    internal ObjectStat SourceObjectInfo { get; set; }
-    internal CopySourceObjectArgs SourceObject { get; set; }
+    public bool ReplaceMetadataDirective { get; set; }
+    public bool ReplaceTagsDirective { get; set; }
+    public string StorageClass { get; set; }
+    public ObjectStat SourceObjectInfo { get; set; }
+    public CopySourceObjectArgs SourceObject { get; set; }
 
     internal override void Validate()
     {
@@ -37,7 +37,7 @@ internal class NewMultipartUploadCopyArgs : NewMultipartUploadArgs<NewMultipartU
         Populate();
     }
 
-    private void Populate()
+    public void Populate()
     {
         //Concat as Headers may have byte range info .etc.
         if (!ReplaceMetadataDirective && SourceObjectInfo.MetaData?.Count > 0)
@@ -78,19 +78,19 @@ internal class NewMultipartUploadCopyArgs : NewMultipartUploadArgs<NewMultipartU
         return this;
     }
 
-    internal NewMultipartUploadCopyArgs WithStorageClass(string storageClass)
+    public NewMultipartUploadCopyArgs WithStorageClass(string storageClass)
     {
         StorageClass = storageClass;
         return this;
     }
 
-    internal NewMultipartUploadCopyArgs WithReplaceMetadataDirective(bool replace)
+    public NewMultipartUploadCopyArgs WithReplaceMetadataDirective(bool replace)
     {
         ReplaceMetadataDirective = replace;
         return this;
     }
 
-    internal NewMultipartUploadCopyArgs WithReplaceTagsDirective(bool replace)
+    public NewMultipartUploadCopyArgs WithReplaceTagsDirective(bool replace)
     {
         ReplaceTagsDirective = replace;
         return this;

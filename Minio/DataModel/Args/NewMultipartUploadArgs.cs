@@ -19,17 +19,17 @@ using Minio.Helper;
 
 namespace Minio.DataModel.Args;
 
-internal class NewMultipartUploadArgs<T> : ObjectWriteArgs<T>
+public class NewMultipartUploadArgs<T> : ObjectWriteArgs<T>
     where T : NewMultipartUploadArgs<T>
 {
-    internal NewMultipartUploadArgs()
+    public NewMultipartUploadArgs()
     {
         RequestMethod = HttpMethod.Post;
     }
 
-    internal ObjectRetentionMode ObjectLockRetentionMode { get; set; }
-    internal DateTime RetentionUntilDate { get; set; }
-    internal bool ObjectLockSet { get; set; }
+    public ObjectRetentionMode ObjectLockRetentionMode { get; set; }
+    public DateTime RetentionUntilDate { get; set; }
+    public bool ObjectLockSet { get; set; }
 
     public NewMultipartUploadArgs<T> WithObjectLockMode(ObjectRetentionMode mode)
     {

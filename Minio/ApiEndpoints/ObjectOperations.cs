@@ -848,7 +848,7 @@ public partial class MinioClient : IObjectOperations
     /// <exception cref="NotSupportedException">The file stream cannot be read from</exception>
     /// <exception cref="InvalidOperationException">The file stream is currently in a read operation</exception>
     /// <exception cref="AccessDeniedException">For encrypted PUT operation, Access is denied if the key is wrong</exception>
-    private async Task<PutObjectResponse> PutObjectSinglePartAsync(PutObjectArgs args,
+    public async Task<PutObjectResponse> PutObjectSinglePartAsync(PutObjectArgs args,
         CancellationToken cancellationToken = default,
         bool singleFile = false)
     {
@@ -900,7 +900,7 @@ public partial class MinioClient : IObjectOperations
     /// <exception cref="NotSupportedException">The file stream cannot be read from</exception>
     /// <exception cref="InvalidOperationException">The file stream is currently in a read operation</exception>
     /// <exception cref="AccessDeniedException">For encrypted PUT operation, Access is denied if the key is wrong</exception>
-    private async Task<IDictionary<int, string>> PutObjectPartAsync(PutObjectPartArgs args,
+    public async Task<IDictionary<int, string>> PutObjectPartAsync(PutObjectPartArgs args,
         CancellationToken cancellationToken = default)
     {
         args?.Validate();
@@ -1053,7 +1053,7 @@ public partial class MinioClient : IObjectOperations
     /// <exception cref="BucketNotFoundException">When bucket is not found</exception>
     /// <exception cref="ObjectNotFoundException">When object is not found</exception>
     /// <exception cref="AccessDeniedException">For encrypted copy operation, Access is denied if the key is wrong</exception>
-    private async Task<string> NewMultipartUploadAsync(NewMultipartUploadPutArgs args,
+    public async Task<string> NewMultipartUploadAsync(NewMultipartUploadPutArgs args,
         CancellationToken cancellationToken = default)
     {
         args?.Validate();
@@ -1081,7 +1081,7 @@ public partial class MinioClient : IObjectOperations
     /// <exception cref="BucketNotFoundException">When bucket is not found</exception>
     /// <exception cref="ObjectNotFoundException">When object is not found</exception>
     /// <exception cref="AccessDeniedException">For encrypted copy operation, Access is denied if the key is wrong</exception>
-    private async Task<string> NewMultipartUploadAsync(NewMultipartUploadCopyArgs args,
+    public async Task<string> NewMultipartUploadAsync(NewMultipartUploadCopyArgs args,
         CancellationToken cancellationToken = default)
     {
         args?.Validate();
@@ -1159,4 +1159,37 @@ public partial class MinioClient : IObjectOperations
         // Return only the valid portion without allocating a new buffer
         return result[..totalRead];
     }
+
+    //* 在进行多文件上传之前，先初始化，获取uploaderId等信息
+    //*
+    //* @param bucketName Bucket name.
+    //* @param objectName Object name in the bucket.
+    //*/
+    //public async Task<string> InitMultUploadAsync(string bucketName, string objectName, IDictionary<string, string> headerMap, string contentType)
+    //{
+
+    //    headerMap ??= new Dictionary<string, string>(StringComparer.Ordinal);
+
+    //    if (contentType == null)
+    //    {
+    //        if (!headerMap.ContainsKey("Content-Type"))
+    //        {
+    //            headerMap.Add("Content-Type", "application/octet-stream");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        headerMap.Add("Content-Type", contentType);
+    //    }
+
+    //    var multipartUploadArgs = new NewMultipartUploadPutArgs()
+    //        .WithBucket(bucketName)
+    //        .WithObject(objectName)
+    //        .WithHeaders(headerMap);
+
+    //    //string uploadId = await NewMultipartUploadAsync(bucketName, objectName, new Dictionary<string, string>(), headerMap, default).ConfigureAwait(false);
+
+    //    var uploadId = await NewMultipartUploadAsync(multipartUploadArgs, default).ConfigureAwait(false);
+    //    return uploadId;
+    //}
 }

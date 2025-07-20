@@ -1,4 +1,4 @@
-/*
+﻿/*
  * MinIO .NET Library for Amazon S3 Compatible Cloud Storage,
  * (C) 2017-2021 MinIO, Inc.
  *
@@ -358,4 +358,39 @@ public interface IObjectOperations
     /// <exception cref="ObjectNotFoundException">When object is not found</exception>
     /// <exception cref="MalFormedXMLException">When configuration XML provided is invalid</exception>
     Task RemoveObjectTagsAsync(RemoveObjectTagsArgs args, CancellationToken cancellationToken = default);
+
+    //Task<string> InitMultUploadAsync(string bucketName, string objectName, IDictionary<string, string> headerMap, string contentType);
+
+    /// <summary>
+    ///     NewMultipartUploadAsync
+    /// </summary>
+    /// <param name="args"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<string> NewMultipartUploadAsync(NewMultipartUploadPutArgs args, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     NewMultipartUploadAsync
+    /// </summary>
+    /// <param name="args"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<string> NewMultipartUploadAsync(NewMultipartUploadCopyArgs args,  CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     PutObjectSinglePartAsync
+    /// </summary>
+    /// <param name="args"></param>
+    /// <param name="cancellationToken"></param>
+    /// <param name="singleFile"></param>
+    /// <returns></returns>
+    Task<PutObjectResponse> PutObjectSinglePartAsync(PutObjectArgs args, CancellationToken cancellationToken = default, bool singleFile = false);
+
+    /// <summary>
+    ///     PutObjectPartAsync
+    /// </summary>
+    /// <param name="args"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<IDictionary<int, string>> PutObjectPartAsync(PutObjectPartArgs args, CancellationToken cancellationToken = default);
 }
